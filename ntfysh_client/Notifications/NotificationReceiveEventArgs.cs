@@ -8,13 +8,15 @@ namespace ntfysh_client.Notifications
         public string Title { get; }
         public string Message { get; }
         public NotificationPriority Priority { get; set; }
+        public string? ClickUrl { get; }
 
-        public NotificationReceiveEventArgs(SubscribedTopic sender, string title, string message, NotificationPriority priority)
+        public NotificationReceiveEventArgs(SubscribedTopic sender, string title, string message, NotificationPriority priority, string? clickUrl = null)
         {
             Sender = sender;
             Title = title;
             Message = message;
             Priority = priority;
+            ClickUrl = clickUrl;
         }
     }
 }

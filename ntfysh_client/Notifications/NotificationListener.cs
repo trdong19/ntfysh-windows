@@ -257,7 +257,7 @@ namespace ntfysh_client.Notifications
 
             if (evt.Event == "message")
             {
-                OnNotificationReceive?.Invoke(this, new NotificationReceiveEventArgs(topic, evt.Title ?? "", evt.Message, evt.Priority ?? NotificationPriority.Default));
+                OnNotificationReceive?.Invoke(this, new NotificationReceiveEventArgs(topic, evt.Title ?? "", evt.Message, evt.Priority ?? NotificationPriority.Default, evt.Click));
             }
         }
 

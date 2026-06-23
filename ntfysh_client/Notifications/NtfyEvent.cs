@@ -24,5 +24,8 @@ namespace ntfysh_client.Notifications
         
         [JsonProperty("priority")]
         public NotificationPriority? Priority { get; set; }
+
+        [JsonProperty("click")]
+        public string? Click { get; set; }
     }
 }

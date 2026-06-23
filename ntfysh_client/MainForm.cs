@@ -87,7 +87,8 @@ namespace ntfysh_client
                     icon: priorityIcon,
                     showTimeOutBar: Program.Settings.CustomTrayNotificationsShowTimeoutBar,
                     showInDarkMode: Program.Settings.CustomTrayNotificationsShowInDarkMode,
-                    playNotificationSound: Program.Settings.CustomTrayNotificationsPlayDefaultWindowsSound
+                    playNotificationSound: Program.Settings.CustomTrayNotificationsPlayDefaultWindowsSound,
+                    clickUrl: e.ClickUrl
                 );
             }
         }

@@ -25,6 +25,7 @@ namespace ntfysh_client
         private readonly BaseTheme _darkModeTheme = new DarkModeTheme();
         private readonly BaseTheme _defaultTheme = new DefaultTheme();
         private BaseTheme? _theme = null;
+        private string? _clickUrl;
 
         public NotificationDialog()
         {
@@ -35,13 +36,15 @@ namespace ntfysh_client
             InitializeWindowHidden();
         }
 
-        public void ShowNotification(string title, string message, int timeoutSeconds = 0, ToolTipIcon? icon = null, bool showTimeOutBar = true, bool showInDarkMode = true, bool playNotificationSound = false)
+        public void ShowNotification(string title, string message, int timeoutSeconds = 0, ToolTipIcon? icon = null, bool showTimeOutBar = true, bool showInDarkMode = true, bool playNotificationSound = false, string? clickUrl = null)
         {
             if (Visible)
             {
                 // close the current notification
                 HandleTimeout(null, null);
             }
+
+            _clickUrl = clickUrl;
 
             _theme = showInDarkMode ? _darkModeTheme : _defaultTheme;
 
@@ -231,7 +234,24 @@ namespace ntfysh_client
             public const int AW_BLEND = 0x00080000;
         }
 
-        private void window_MouseDown(object sender, EventArgs e) => CancelTimer();
+        private void window_MouseDown(object sender, EventArgs e)
+        {
+            CancelTimer();
+
+            // Open click URL if available
+            if (!string.IsNullOrEmpty(_clickUrl))
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo(_clickUrl) { UseShellExecute = true });
+                }
+                catch
+                {
+                    // ignore launch errors
+                }
+                HandleTimeout(null, null);
+            }
+        }
 
         private void CancelTimer()
         {
